@@ -14,22 +14,22 @@ const ANIMATION_CONFIG = {
   INITIAL_Y_OFFSET: 60,
 };
 
-const clamp = (value, min = 0, max = 100) =>
+const clamp = (value: number, min: number = 0, max: number = 100): number =>
   Math.min(Math.max(value, min), max);
 
-const round = (value, precision = 3) =>
+const round = (value: number, precision: number = 3): number =>
   parseFloat(value.toFixed(precision));
 
 const adjust = (
-  value,
-  fromMin,
-  fromMax,
-  toMin,
-  toMax
-) =>
+  value: number,
+  fromMin: number,
+  fromMax: number,
+  toMin: number,
+  toMax: number
+): number =>
   round(toMin + ((toMax - toMin) * (value - fromMin)) / (fromMax - fromMin));
 
-const easeInOutCubic = (x) =>
+const easeInOutCubic = (x: number): number =>
   x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
 
 const ProfileCardComponent = ({
