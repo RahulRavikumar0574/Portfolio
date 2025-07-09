@@ -75,7 +75,7 @@ const ProfileCardComponent = ({
   const animationHandlers = useMemo(() => {
     if (!enableTilt) return null;
 
-    let rafId = null;
+    let rafId: number | null = null;
 
     const updateCardTransform = (
       offsetX,
