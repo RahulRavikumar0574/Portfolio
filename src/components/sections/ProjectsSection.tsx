@@ -381,7 +381,9 @@ export function ProjectsSection() {
           className="text-center"
         >
           <a
-            href="/projects"
+            href="https://github.com/RahulRavikumar0574"
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-8 py-3 rounded-lg font-medium transition-all duration-300 transform hover:scale-105"
           >
             <IconCode className="h-5 w-5" />

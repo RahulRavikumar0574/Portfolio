@@ -169,7 +169,11 @@ export function ContactSection() {
               Send a Message
             </h3>
 
-            <form className="space-y-6">
+            <form 
+              className="space-y-6"
+              action="https://formspree.io/f/mpwrgnjp" 
+              method="POST"
+            >
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-300 mb-2">
@@ -177,8 +181,10 @@ export function ContactSection() {
                   </label>
                   <input
                     type="text"
+                    name="firstName"
                     className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-blue-500 transition-colors"
                     placeholder="John"
+                    required
                   />
                 </div>
                 <div>
@@ -187,8 +193,10 @@ export function ContactSection() {
                   </label>
                   <input
                     type="text"
+                    name="lastName"
                     className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-blue-500 transition-colors"
                     placeholder="Doe"
+                    required
                   />
                 </div>
               </div>
@@ -199,8 +207,10 @@ export function ContactSection() {
                 </label>
                 <input
                   type="email"
+                  name="email"
                   className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-blue-500 transition-colors"
                   placeholder="john@example.com"
+                  required
                 />
               </div>
 
@@ -210,8 +220,10 @@ export function ContactSection() {
                 </label>
                 <input
                   type="text"
+                  name="subject"
                   className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-blue-500 transition-colors"
                   placeholder="Project Discussion"
+                  required
                 />
               </div>
 
@@ -221,8 +233,10 @@ export function ContactSection() {
                 </label>
                 <textarea
                   rows={5}
+                  name="message"
                   className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-blue-500 transition-colors resize-none"
                   placeholder="Tell me about your project..."
+                  required
                 />
               </div>
 
