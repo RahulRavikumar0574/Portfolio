@@ -78,10 +78,10 @@ const ProfileCardComponent = ({
     let rafId: number | null = null;
 
     const updateCardTransform = (
-      offsetX,
-      offsetY,
-      card,
-      wrap
+      offsetX: number,
+      offsetY: number,
+      card: HTMLElement,
+      wrap: HTMLElement
     ) => {
       const width = card.clientWidth;
       const height = card.clientHeight;
