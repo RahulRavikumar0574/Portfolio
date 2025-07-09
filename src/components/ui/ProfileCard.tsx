@@ -110,17 +110,17 @@ const ProfileCardComponent = ({
     };
 
     const createSmoothAnimation = (
-      duration,
-      startX,
-      startY,
-      card,
-      wrap
+      duration: number,
+      startX: number,
+      startY: number,
+      card: HTMLElement,
+      wrap: HTMLElement
     ) => {
       const startTime = performance.now();
       const targetX = wrap.clientWidth / 2;
       const targetY = wrap.clientHeight / 2;
 
-      const animationLoop = (currentTime) => {
+      const animationLoop = (currentTime: number) => {
         const elapsed = currentTime - startTime;
         const progress = clamp(elapsed / duration);
         const easedProgress = easeInOutCubic(progress);
@@ -151,7 +151,7 @@ const ProfileCardComponent = ({
   }, [enableTilt]);
 
   const handlePointerMove = useCallback(
-    (event) => {
+    (event: React.PointerEvent<HTMLDivElement>) => {
       const card = cardRef.current;
       const wrap = wrapRef.current;
 
@@ -180,7 +180,7 @@ const ProfileCardComponent = ({
   }, [animationHandlers]);
 
   const handlePointerLeave = useCallback(
-    (event) => {
+    (event: React.PointerEvent<HTMLDivElement>) => {
       const card = cardRef.current;
       const wrap = wrapRef.current;
 
