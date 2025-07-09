@@ -186,10 +186,14 @@ const ProfileCardComponent = ({
 
       if (!card || !wrap || !animationHandlers) return;
 
+      const rect = (card as HTMLElement).getBoundingClientRect();
+      const offsetX = event.clientX - rect.left;
+      const offsetY = event.clientY - rect.top;
+
       animationHandlers.createSmoothAnimation(
         ANIMATION_CONFIG.SMOOTH_DURATION,
-        event.offsetX,
-        event.offsetY,
+        offsetX,
+        offsetY,
         card,
         wrap
       );
