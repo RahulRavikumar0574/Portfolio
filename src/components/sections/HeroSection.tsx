@@ -1,17 +1,12 @@
 "use client";
 import React, { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { LampContainer } from "@/components/ui/lamp";
+import { motion, useScroll } from "framer-motion";
 import ProfileCard from "@/components/ui/ProfileCard";
-import {
-  IconMail,
-  IconRocket,
-  IconStar
-} from "@tabler/icons-react";
+import { IconStar } from "@tabler/icons-react";
 
 export function HeroSection() {
   const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
+  useScroll({
     target: ref,
     offset: ["start end", "end start"],
   });
