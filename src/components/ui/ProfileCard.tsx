@@ -175,8 +175,8 @@ const ProfileCardComponent = ({
     if (!card || !wrap || !animationHandlers) return;
 
     animationHandlers.cancelAnimation();
-    wrap.classList.add("active");
-    card.classList.add("active");
+    (wrap as HTMLElement).classList.add("active");
+    (card as HTMLElement).classList.add("active");
   }, [animationHandlers]);
 
   const handlePointerLeave = useCallback(
@@ -193,8 +193,8 @@ const ProfileCardComponent = ({
         card,
         wrap
       );
-      wrap.classList.remove("active");
-      card.classList.remove("active");
+      (wrap as HTMLElement).classList.remove("active");
+      (card as HTMLElement).classList.remove("active");
     },
     [animationHandlers]
   );
