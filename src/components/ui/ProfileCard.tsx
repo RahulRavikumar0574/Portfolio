@@ -157,7 +157,7 @@ const ProfileCardComponent = ({
 
       if (!card || !wrap || !animationHandlers) return;
 
-      const rect = card.getBoundingClientRect();
+      const rect = (card as HTMLElement).getBoundingClientRect();
       animationHandlers.updateCardTransform(
         event.clientX - rect.left,
         event.clientY - rect.top,
