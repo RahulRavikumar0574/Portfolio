@@ -1,39 +1,12 @@
+/*
+	Installed from https://reactbits.dev/ts/default/
+*/
+
 import React, { useEffect, useRef, useCallback, useMemo } from "react";
 import "./ProfileCard.css";
 
-const DEFAULT_BEHIND_GRADIENT =
-  "radial-gradient(farthest-side circle at var(--pointer-x) var(--pointer-y),hsla(266,100%,90%,var(--card-opacity)) 4%,hsla(266,50%,80%,calc(var(--card-opacity)*0.75)) 10%,hsla(266,25%,70%,calc(var(--card-opacity)*0.5)) 50%,hsla(266,0%,60%,0) 100%),radial-gradient(35% 52% at 55% 20%,#00ffaac4 0%,#073aff00 100%),radial-gradient(100% 100% at 50% 50%,#00c1ffff 1%,#073aff00 76%),conic-gradient(from 124deg at 50% 50%,#c137ffff 0%,#07c6ffff 40%,#07c6ffff 60%,#c137ffff 100%)";
-
-const DEFAULT_INNER_GRADIENT =
-  "linear-gradient(145deg,#60496e8c 0%,#71C4FF44 100%)";
-
-const ANIMATION_CONFIG = {
-  SMOOTH_DURATION: 600,
-  INITIAL_DURATION: 1500,
-  INITIAL_X_OFFSET: 70,
-  INITIAL_Y_OFFSET: 60,
-};
-
-const clamp = (value: number, min: number = 0, max: number = 100): number =>
-  Math.min(Math.max(value, min), max);
-
-const round = (value: number, precision: number = 3): number =>
-  parseFloat(value.toFixed(precision));
-
-const adjust = (
-  value: number,
-  fromMin: number,
-  fromMax: number,
-  toMin: number,
-  toMax: number
-): number =>
-  round(toMin + ((toMax - toMin) * (value - fromMin)) / (fromMax - fromMin));
-
-const easeInOutCubic = (x: number): number =>
-  x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
-
-type ProfileCardProps = {
-  avatarUrl?: string;
+interface ProfileCardProps {
+  avatarUrl: string;
   iconUrl?: string;
   grainUrl?: string;
   behindGradient?: string;
@@ -49,9 +22,40 @@ type ProfileCardProps = {
   contactText?: string;
   showUserInfo?: boolean;
   onContactClick?: () => void;
-};
+}
 
-const ProfileCardComponent = ({
+const DEFAULT_BEHIND_GRADIENT =
+  "radial-gradient(farthest-side circle at var(--pointer-x) var(--pointer-y),hsla(266,100%,90%,var(--card-opacity)) 4%,hsla(266,50%,80%,calc(var(--card-opacity)*0.75)) 10%,hsla(266,25%,70%,calc(var(--card-opacity)*0.5)) 50%,hsla(266,0%,60%,0) 100%),radial-gradient(35% 52% at 55% 20%,#00ffaac4 0%,#073aff00 100%),radial-gradient(100% 100% at 50% 50%,#00c1ffff 1%,#073aff00 76%),conic-gradient(from 124deg at 50% 50%,#c137ffff 0%,#07c6ffff 40%,#07c6ffff 60%,#c137ffff 100%)";
+
+const DEFAULT_INNER_GRADIENT =
+  "linear-gradient(145deg,#60496e8c 0%,#71C4FF44 100%)";
+
+const ANIMATION_CONFIG = {
+  SMOOTH_DURATION: 600,
+  INITIAL_DURATION: 1500,
+  INITIAL_X_OFFSET: 70,
+  INITIAL_Y_OFFSET: 60,
+} as const;
+
+const clamp = (value: number, min = 0, max = 100): number =>
+  Math.min(Math.max(value, min), max);
+
+const round = (value: number, precision = 3): number =>
+  parseFloat(value.toFixed(precision));
+
+const adjust = (
+  value: number,
+  fromMin: number,
+  fromMax: number,
+  toMin: number,
+  toMax: number
+): number =>
+  round(toMin + ((toMax - toMin) * (value - fromMin)) / (fromMax - fromMin));
+
+const easeInOutCubic = (x: number): number =>
+  x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+
+const ProfileCardComponent: React.FC<ProfileCardProps> = ({
   avatarUrl = "<Placeholder for avatar URL>",
   iconUrl = "<Placeholder for icon URL>",
   grainUrl = "<Placeholder for grain URL>",
@@ -68,9 +72,9 @@ const ProfileCardComponent = ({
   contactText = "Contact",
   showUserInfo = true,
   onContactClick,
-}: ProfileCardProps) => {
-  const wrapRef = useRef(null);
-  const cardRef = useRef(null);
+}) => {
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
 
   const animationHandlers = useMemo(() => {
     if (!enableTilt) return null;
@@ -151,13 +155,13 @@ const ProfileCardComponent = ({
   }, [enableTilt]);
 
   const handlePointerMove = useCallback(
-    (event: React.PointerEvent<HTMLDivElement>) => {
+    (event: PointerEvent) => {
       const card = cardRef.current;
       const wrap = wrapRef.current;
 
       if (!card || !wrap || !animationHandlers) return;
 
-      const rect = (card as HTMLElement).getBoundingClientRect();
+      const rect = card.getBoundingClientRect();
       animationHandlers.updateCardTransform(
         event.clientX - rect.left,
         event.clientY - rect.top,
@@ -175,30 +179,26 @@ const ProfileCardComponent = ({
     if (!card || !wrap || !animationHandlers) return;
 
     animationHandlers.cancelAnimation();
-    (wrap as HTMLElement).classList.add("active");
-    (card as HTMLElement).classList.add("active");
+    wrap.classList.add("active");
+    card.classList.add("active");
   }, [animationHandlers]);
 
   const handlePointerLeave = useCallback(
-    (event: React.PointerEvent<HTMLDivElement>) => {
+    (event: PointerEvent) => {
       const card = cardRef.current;
       const wrap = wrapRef.current;
 
       if (!card || !wrap || !animationHandlers) return;
 
-      const rect = (card as HTMLElement).getBoundingClientRect();
-      const offsetX = event.clientX - rect.left;
-      const offsetY = event.clientY - rect.top;
-
       animationHandlers.createSmoothAnimation(
         ANIMATION_CONFIG.SMOOTH_DURATION,
-        offsetX,
-        offsetY,
+        event.offsetX,
+        event.offsetY,
         card,
         wrap
       );
-      (wrap as HTMLElement).classList.remove("active");
-      (card as HTMLElement).classList.remove("active");
+      wrap.classList.remove("active");
+      card.classList.remove("active");
     },
     [animationHandlers]
   );
@@ -211,9 +211,9 @@ const ProfileCardComponent = ({
 
     if (!card || !wrap) return;
 
-    const pointerMoveHandler = handlePointerMove;
-    const pointerEnterHandler = handlePointerEnter;
-    const pointerLeaveHandler = handlePointerLeave;
+    const pointerMoveHandler = handlePointerMove as EventListener;
+    const pointerEnterHandler = handlePointerEnter as EventListener;
+    const pointerLeaveHandler = handlePointerLeave as EventListener;
 
     card.addEventListener("pointerenter", pointerEnterHandler);
     card.addEventListener("pointermove", pointerMoveHandler);
@@ -247,14 +247,14 @@ const ProfileCardComponent = ({
 
   const cardStyle = useMemo(
     () =>
-    ({
-      "--icon": iconUrl ? `url(${iconUrl})` : "none",
-      "--grain": grainUrl ? `url(${grainUrl})` : "none",
-      "--behind-gradient": showBehindGradient
-        ? (behindGradient ?? DEFAULT_BEHIND_GRADIENT)
-        : "none",
-      "--inner-gradient": innerGradient ?? DEFAULT_INNER_GRADIENT,
-    }),
+      ({
+        "--icon": iconUrl ? `url(${iconUrl})` : "none",
+        "--grain": grainUrl ? `url(${grainUrl})` : "none",
+        "--behind-gradient": showBehindGradient
+          ? (behindGradient ?? DEFAULT_BEHIND_GRADIENT)
+          : "none",
+        "--inner-gradient": innerGradient ?? DEFAULT_INNER_GRADIENT,
+      }) as React.CSSProperties,
     [iconUrl, grainUrl, showBehindGradient, behindGradient, innerGradient]
   );
 
@@ -279,7 +279,7 @@ const ProfileCardComponent = ({
               alt={`${name || "User"} avatar`}
               loading="lazy"
               onError={(e) => {
-                const target = e.target;
+                const target = e.target as HTMLImageElement;
                 target.style.display = "none";
               }}
             />
@@ -292,7 +292,7 @@ const ProfileCardComponent = ({
                       alt={`${name || "User"} mini avatar`}
                       loading="lazy"
                       onError={(e) => {
-                        const target = e.target;
+                        const target = e.target as HTMLImageElement;
                         target.style.opacity = "0.5";
                         target.src = avatarUrl;
                       }}
