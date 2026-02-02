@@ -83,10 +83,10 @@ export function HeroSection() {
           handle="@rahulravi0574"
           status="Available for Work"
           contactText="Get In Touch"
-          avatarUrl="/Rahul.jpg"
+          avatarUrl="/Rahul-works.jpg"
           iconUrl="/placeholder.svg"
           grainUrl="/placeholder.svg"
-          miniAvatarUrl="/Rahul.jpg"
+          miniAvatarUrl="/Rahul-works.jpg"
           behindGradient="radial-gradient(farthest-side circle at var(--pointer-x) var(--pointer-y),hsla(266,100%,90%,var(--card-opacity)) 4%,hsla(266,50%,80%,calc(var(--card-opacity)*0.75)) 10%,hsla(266,25%,70%,calc(var(--card-opacity)*0.5)) 50%,hsla(266,0%,60%,0) 100%)"
           innerGradient="linear-gradient(145deg,#60496e8c 0%,#71C4FF44 100%)"
           showUserInfo={true}
